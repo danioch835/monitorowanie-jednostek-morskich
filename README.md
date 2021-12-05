@@ -8,14 +8,24 @@ Aplikacja do monitorowania jednostek morskich
 
 # Zasada działania aplikacji
 1. Aktualne pozycje jednostek wyświetlane są na podstawie danych pobranych bezpośrednio z API AIS. Pobierane dane nie są w żaden sposób zapisywane, są tylko wyświetlane na mapie.
-2. Historyczne pozycje jednostek pobierane są z API oraz zapisywane na bazie danych w celu ich późniejszego wyświetlenia. Wykorzystana została tutaj usługa zwracający pozycje dla wybranej jednostki z ostatnich 24h. Dane pobierane są co 5 sekund przez działające w tle zadanie. Dane zapisywanę są w bazie danych przyrostowo (nowsze pozycje niż te które znajdują się już na bazie).
+2. Historyczne pozycje jednostek pobierane są z API oraz zapisywane na bazie danych w celu ich późniejszego wyświetlenia. Wykorzystana została tutaj usługa zwracający pozycje dla wybranej jednostki z ostatnich 24h. Dane pobierane są co 10 sekund przez działające w tle zadanie. Dane zapisywanę są w bazie danych przyrostowo (nowsze pozycje niż te które znajdują się już na bazie).
 3. Cel podrózy statków pobierany jest na na podstawie tekstu pobranego z AIS. Dane pobierane są z API positionstack.  
 
 # Uruchomienie aplikacji
 Aby uruchomić aplikację należy przy pomocy Docker uruchomić dwa kontenery. Pierwszy z bazą danych Postgres oraz drugi z aplikacją.
 
 ## Uruchomienie bazy danych
+1. Uruchomienie kontenera z bazą danych
 <pre>docker run -d --name some-postgres -v pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 postgres</pre>
+
+2. Podłączenie się do bazy danych w kontenerze:
+<pre>
+docker exec -it some-postgres psql -U postgres
+</pre>
+3. Utworzenie bazy na potrzeby aplikacji (baza o nazwie "test"): 
+<pre>
+create database test;
+</pre>
 
 <b>UWAGA! Należy ustawić własne hasło do bazy w zmiennej POSTGRES_PASSWORD</b>
 
