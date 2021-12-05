@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="/js/leaflet.awesome-markers.js"></script>
+
+    <style>#map { height: 900px; }</style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+<script th:inline="javascript">
+
+    var map = L.map('map').setView([52.95, 19.23], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var tracks = [[${tracks}]];
+
+   var endPointMarker = L.AwesomeMarkers.icon({
+            icon: 'home',
+            iconColor: 'white',
+            markerColor: 'green'
+          });
+
+    tracks.forEach(value => {
+        var polyline;
+        L.marker([value.x, value.y], {icon: endPointMarker}).addTo(map)
+            .bindPopup(value.name)
+            .openPopup();
+    })
+
+    map.setView([tracks[0].x, tracks[0].y], 13);
+
+</script>
+
+
+</body>
+</html>

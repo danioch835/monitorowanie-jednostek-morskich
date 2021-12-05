@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="/js/leaflet.awesome-markers.js"></script>
+
+    <style>#map { height: 900px; }</style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+<script th:inline="javascript">
+
+    var map = L.map('map').setView([52.95, 19.23], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var positions = [[${tracks}]];
+
+    var tracks = [];
+
+    positions.points.forEach(value => {
+        tracks.push([value.lat, value.lon]);
+    });
+
+    var polyline = L.polyline(tracks,
+                    {
+                        color: 'black',
+                        weight: 2,
+                        opacity: 1,
+                        lineJoin: 'round'
+                    }).addTo(map);
+
+    var startPointMarker = L.AwesomeMarkers.icon({
+            icon: 'coffee',
+            iconColor: 'white',
+            markerColor: 'black'
+          });
+
+      var endPointMarker = L.AwesomeMarkers.icon({
+        icon: 'home',
+        iconColor: 'white',
+        markerColor: 'green'
+      });
+
+    var startPoint = L.marker(tracks[0], {icon: startPointMarker}).addTo(map).bindTooltip(positions.points[0].date);
+
+    var endPoint = L.marker(tracks[tracks.length - 1], {icon: endPointMarker}).addTo(map).bindTooltip(positions.points[positions.points.length - 1].date);
+
+    map.fitBounds(polyline.getBounds());
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="/js/leaflet.awesome-markers.js"></script>
+
+    <style>#map { height: 900px; }</style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+<script th:inline="javascript">
+
+    var map = L.map('map').setView([52.95, 19.23], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var positions = [[${tracks}]];
+
+    var tracks = new Map();
+
+    positions.forEach(value => {
+        tracks.set(value.shipId, value);
+        var singleTrack = [];
+        value.points.forEach(value2 => {
+            singleTrack.push([value2.lat, value2.lon]);
+        });
+        var polyline = L.polyline(singleTrack,
+            {
+                color: 'black',
+                weight: 2,
+                opacity: 1,
+                lineJoin: 'round'
+            }).bindTooltip(value.name).bindPopup(value.distance + '');
+
+          var startPointMarker = L.AwesomeMarkers.icon({
+            icon: 'coffee',
+            iconColor: 'white',
+            markerColor: 'black'
+          });
+
+          var endPointMarker = L.AwesomeMarkers.icon({
+            icon: 'home',
+            iconColor: 'white',
+            markerColor: 'green'
+          });
+
+          var destinationMarker = L.AwesomeMarkers.icon({
+            icon: 'home',
+            iconColor: 'white',
+            markerColor: 'red'
+          });
+
+        var startPoint = L.marker(singleTrack[0], {icon: startPointMarker})
+                          .bindPopup(value.name + '<br> Distance: ' + value.distance + ' meters <br> Destination: ' + value.destination + '<br>' + value.points[0].date + '<br><a href="/tracks/' + value.shipId + '" target="_blank">Show history</a>');
+
+        var endPoint = L.marker(singleTrack[singleTrack.length - 1], {icon: endPointMarker})
+                          .addTo(map).setZIndexOffset(1)
+                          .bindPopup(value.name + '<br>Distance: ' + value.distance + ' meters <br> Destination: ' + value.destination + '<br>' + value.points[value.points.length - 1].date + '<br><a href="/tracks/' + value.shipId + '" target="_blank">Show history</a>')
+                          .on('mouseover', () => {
+                                                    tracks.get(value.shipId).polyline.addTo(map);
+                                                    tracks.get(value.shipId).startPoint.addTo(map);
+                                                    tracks.get(value.shipId).destinationPoint.addTo(map);
+                                                    tracks.get(value.shipId).destinationPolyline.addTo(map);
+                                                 })
+                          .on('mouseout', () => {
+                                                    if (!tracks.get(value.shipId).clicked) {
+                                                        tracks.get(value.shipId).polyline.removeFrom(map);
+                                                        tracks.get(value.shipId).startPoint.removeFrom(map);
+                                                        tracks.get(value.shipId).destinationPoint.removeFrom(map);
+                                                        tracks.get(value.shipId).destinationPolyline.removeFrom(map);
+
+                                                    }
+                                                 })
+                          .on('click', () => {
+                                                    if (!tracks.get(value.shipId).clicked) {
+                                                        removeOtherTracks(value.shipId);
+                                                    } else {
+                                                        resetTracks(value.shipId);
+                                                    }
+                                                    tracks.get(value.shipId).clicked = !tracks.get(value.shipId).clicked;
+                                                });
+
+        var destinationMarker = null;
+        var destinationPolyline = null;
+        if (value.trackDestination != null && value.trackDestination.point.lon != null && value.trackDestination.point.lat != null) {
+            destinationMarker = L.marker([value.trackDestination.point.lat, value.trackDestination.point.lon], {icon: startPointMarker}).bindPopup(value.trackDestination.name);
+            destinationPolyline = L.polyline([singleTrack[singleTrack.length - 1],[value.trackDestination.point.lat, value.trackDestination.point.lon]],
+            {
+                color: 'red',
+                weight: 2,
+                opacity: 1,
+                lineJoin: 'round'
+            }).bindTooltip(value.trackDestination.name);
+        }
+
+        tracks.get(value.shipId).polyline = polyline;
+        tracks.get(value.shipId).startPoint = startPoint;
+        tracks.get(value.shipId).endPoint = endPoint;
+        tracks.get(value.shipId).clicked = false;
+        tracks.get(value.shipId).destinationPoint = destinationMarker;
+        tracks.get(value.shipId).destinationPolyline = destinationPolyline;
+
+    });
+
+    map.setView([positions[0].points[positions[0].points.length - 1].lat, positions[0].points[positions[0].points.length - 1].lon], 10);
+
+    function removeOtherTracks(shipId) {
+        tracks.forEach(value => {
+                                    if (value.shipId != shipId)
+                                        value.endPoint.removeFrom(map);
+                                 })
+    }
+
+    function resetTracks(shipId) {
+        tracks.forEach(value => {
+                                    if (value.shipId != shipId)
+                                        value.endPoint.addTo(map);
+                                 })
+    }
+
+</script>
+
+
+</body>
+</html>
