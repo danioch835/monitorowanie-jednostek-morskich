@@ -42,8 +42,7 @@ public class DataLoaderService {
             double distance = DistanceCalculator.distance(previousPosition.getLat(),
                                                           actualPosition.getLat(),
                                                           previousPosition.getLon(),
-                                                          previousPosition.getLon(),
-                                                          0.0, 0.0);
+                                                          previousPosition.getLon());
 
             TrackPositionEntity entity = new TrackPositionEntity();
             entity.setMmsi(tracks.getMmsi());

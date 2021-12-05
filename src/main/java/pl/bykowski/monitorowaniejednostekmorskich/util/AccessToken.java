@@ -27,20 +27,6 @@ public class AccessToken {
     private static String getAccessToken() {
         String url = "https://id.barentswatch.no/connect/token";
 
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode rootNode = mapper.createObjectNode();
-
-//        rootNode.put("client_id", "do.dev.api@gmail.com:dodevapi");
-//        rootNode.put("client_secret", "dodevapisecret");
-//        rootNode.put("scope", "api");
-//        rootNode.put("grant_type", "client_credentials");
-//
-//        try {
-//            System.out.println(mapper.writeValueAsString(rootNode));
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 

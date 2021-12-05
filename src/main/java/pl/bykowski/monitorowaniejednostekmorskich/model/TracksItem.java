@@ -17,10 +17,6 @@ public class TracksItem{
 	@JsonProperty("fromTime")
 	private String fromTime;
 
-//	@JsonProperty("coordinates")
-//	@JsonUnwrapped
-//	private List<Coordinate> coordinates;
-
 	@JsonProperty("intervalPoints")
 	private List<TrackPosition> intervalPoints;
 
@@ -53,14 +49,6 @@ public class TracksItem{
 	public String getFromTime(){
 		return fromTime;
 	}
-
-//	public void setCoordinates(List<Coordinate> coordinates){
-//		this.coordinates = coordinates;
-//	}
-//
-//	public List<Coordinate> getCoordinates(){
-//		return coordinates;
-//	}
 
 	public void setIntervalPoints(List<TrackPosition> intervalPoints){
 		this.intervalPoints = intervalPoints;

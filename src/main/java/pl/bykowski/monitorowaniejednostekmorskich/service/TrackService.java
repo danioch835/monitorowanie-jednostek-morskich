@@ -30,8 +30,8 @@ public class TrackService {
         List<TrackPositionEntity> intervalPoints = getTrackHistoryFromDb(mmsi);
 
         Track track = new Track();
-        track.setName("A");
-        track.setDestination("A");
+//        track.setName("A");
+//        track.setDestination("A");
         track.setMmsi(mmsi.intValue());
         return getTrackView(track, intervalPoints);
     }

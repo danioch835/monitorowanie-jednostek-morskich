@@ -18,12 +18,6 @@ public class MapController {
         this.positionService = positionService;
     }
 
-    @GetMapping("")
-    public String getMapMain(Model model) {
-//        model.addAttribute("tracks", trackService.getBestTracks());
-        return "mapMain";
-    }
-
     @GetMapping("/tracks")
     public String getTracks(Model model) {
         model.addAttribute("tracks", trackService.getTracks());

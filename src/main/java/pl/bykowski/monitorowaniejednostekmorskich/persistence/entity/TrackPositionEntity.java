@@ -13,13 +13,6 @@ public class TrackPositionEntity {
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
 	private Integer mmsi;
-
-//	private String msgt;
-//	private Object heading;
-//	private double sog;
-//	private Object rot;
-//	private Object cog;
-
 	private double lon;
 	private double lat;
 	private OffsetDateTime date;
@@ -49,7 +42,6 @@ public class TrackPositionEntity {
 		return lon;
 	}
 
-
 	public void setLat(double lat){
 		this.lat = lat;
 	}
@@ -73,45 +65,5 @@ public class TrackPositionEntity {
 	public void setDate(OffsetDateTime date) {
 		this.date = date;
 	}
-
-	//	public void setMsgt(String msgt){
-//		this.msgt = msgt;
-//	}
-//
-//	public String getMsgt(){
-//		return msgt;
-//	}
-//
-//	public void setHeading(Object heading){
-//		this.heading = heading;
-//	}
-//
-//	public Object getHeading(){
-//		return heading;
-//	}
-//
-//	public void setRot(Object rot){
-//		this.rot = rot;
-//	}
-//
-//	public Object getRot(){
-//		return rot;
-//	}
-//
-//	public void setCog(Object cog){
-//		this.cog = cog;
-//	}
-//
-//	public Object getCog(){
-//		return cog;
-//	}
-//	
-//	public void setSog(double sog){
-//		this.sog = sog;
-//	}
-//
-//	public double getSog(){
-//		return sog;
-//	}
 
 }

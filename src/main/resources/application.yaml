@@ -1,22 +1,9 @@
-#spring:
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          barentswatch:
-#            client-id: <client-id>
-#            client-secret: <secret>
-#        provider:
-#          barentswatch:
-#            issuer-uri: https://id.barentswatch.no/
-
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
-#      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: "jdbc:postgresql://ubuntu-server2:5432/test"
+    url: "jdbc:postgresql://localhost:5432/test"
     username: postgres
     password: mysecretpassword

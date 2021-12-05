@@ -31,23 +31,10 @@ public class TrackPositionDbService {
     }
 
     public List<TrackPositionEntity> find(Integer mmsi) {
-//        TrackPositionEntity entity = new TrackPositionEntity();
-//        entity.setMmsi(mmsi);
-//        Example<TrackPositionEntity> example = Example.of(entity);
-//        return trackPositonRepository.findAll(example);
-
         return trackPositonRepository.findByMmsi(mmsi);
-
     }
 
     public List<TrackPositionEntity> getLastDayTruck(Integer mmsi) {
-//        TrackPositionEntity entity = new TrackPositionEntity();
-//        entity.setMmsi(mmsi);
-//        Example<TrackPositionEntity> example = Example.of(entity);
-//        return trackPositonRepository.findAll(example);
-
-//        return trackPositonRepository.findByMmsi(mmsi);
-
         OffsetDateTime lastDay = OffsetDateTime.now().minusDays(1);
         return trackPositonRepository.findByMmsiAndDateGreaterThan(mmsi, lastDay);
     }
