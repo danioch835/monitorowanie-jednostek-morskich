@@ -9,7 +9,7 @@ Aplikacja do monitorowania jednostek morskich
 # Zasada działania aplikacji
 1. Aktualne pozycje jednostek wyświetlane są na podstawie danych pobranych bezpośrednio z API AIS. Pobierane dane nie są w żaden sposób zapisywane, są tylko wyświetlane na mapie.
 2. Historyczne pozycje jednostek pobierane są z API oraz zapisywane na bazie danych w celu ich późniejszego wyświetlenia. Wykorzystana została tutaj usługa zwracający pozycje dla wybranej jednostki z ostatnich 24h. Dane pobierane są co 10 sekund przez działające w tle zadanie. Dane zapisywanę są w bazie danych przyrostowo (nowsze pozycje niż te które znajdują się już na bazie).
-3. Cel podrózy statków pobierany jest na na podstawie tekstu pobranego z AIS. Dane pobierane są z API positionstack.  
+3. Cel podrózy statków pobierany jest na na podstawie tekstu pobranego z AIS. Dane pobierane są z API positionstack. Znalezione miejsca wraz ze współrzędnymi zapisywane są na bazie danych w celu ograniczenia ruchu do zewnętrznego API. Podczas pobierania współrzędnych wykorzystywana jest najpierw wartosć zapisana w bazie danych, a jeśli odpowiedni wpis nie istnieje to wtedy następuje próba pobrania lokalizacji z API positionstack.
 
 # Uruchomienie aplikacji
 Aby uruchomić aplikację należy przy pomocy Docker uruchomić dwa kontenery. Pierwszy z bazą danych Postgres oraz drugi z aplikacją.
@@ -93,7 +93,6 @@ Czarna linia reprezentuje hostoryczną trasę jednostki. Po najechaniu na pierws
 
 <b>c) Klikamy w link "Show history" na poupie aby zobaczyć dotychczasową historię trasy jednostki:</b>
 ![historia](https://user-images.githubusercontent.com/26234920/144765686-ce5eb058-12f7-464c-bae3-ded9cbcea33c.png)
-
 
 <b>d) Po dłuższym czasie ponownie klikamy w link, aby zobaczyć historię trasy jednostki:</b>
 ![historia_pelna](https://user-images.githubusercontent.com/26234920/144765689-4834b8df-d3dd-4fc0-963e-3491e611a174.PNG)
