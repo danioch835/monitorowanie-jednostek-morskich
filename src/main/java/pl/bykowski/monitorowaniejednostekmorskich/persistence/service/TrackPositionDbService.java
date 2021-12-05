@@ -14,8 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class TrackPositionDbService {
 
-    @Autowired
-    private TrackPositonRepository trackPositonRepository;
+    private final TrackPositonRepository trackPositonRepository;
+
+    public TrackPositionDbService(TrackPositonRepository trackPositonRepository) {
+        this.trackPositonRepository = trackPositonRepository;
+    }
 
     public List<TrackPositionEntity> save(Integer mmsi, List<TrackPositionEntity> positions) {
         TrackPositionEntity lastPositionDb = trackPositonRepository.findTopByMmsiOrderByDateDesc(mmsi);

@@ -14,8 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class DestinationDbService {
 
-    @Autowired
-    private DestinationRepository destinationRepository;
+    private final DestinationRepository destinationRepository;
+
+    public DestinationDbService(DestinationRepository destinationRepository) {
+        this.destinationRepository = destinationRepository;
+    }
 
     public DestinationEntity save(DestinationEntity destinationEntity) {
         return destinationRepository.save(destinationEntity);

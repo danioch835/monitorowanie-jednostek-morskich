@@ -27,10 +27,13 @@ import java.util.stream.Collectors;
 @Service
 public class DestinationService {
 
-    RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+    private final DestinationDbService destinationDbService;
 
-    @Autowired
-    private DestinationDbService destinationDbService;
+    public DestinationService(DestinationDbService destinationDbService) {
+        this.restTemplate = new RestTemplate();
+        this.destinationDbService = destinationDbService;
+    }
 
     public Datum getDestination(String destinationName, double lat, double lon) {
         DestinationEntity destinationEntity = destinationDbService.find(destinationName);

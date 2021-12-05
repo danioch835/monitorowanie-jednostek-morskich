@@ -16,10 +16,13 @@ import java.util.List;
 @Service
 public class DataLoaderService {
 
-    RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+    private final TrackPositionDbService trackPositionDbService;
 
-    @Autowired
-    private TrackPositionDbService trackPositionDbService;
+    public DataLoaderService(TrackPositionDbService trackPositionDbService) {
+        this.trackPositionDbService = trackPositionDbService;
+        this.restTemplate = new RestTemplate();
+    }
 
     public void getTracks() {
         List<Track> tracks = getPositions();

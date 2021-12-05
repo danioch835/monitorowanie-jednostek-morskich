@@ -20,10 +20,13 @@ import java.util.stream.Collectors;
 @Service
 public class PositionService {
 
-    @Autowired
-    private DestinationService destinationService;
+    private final DestinationService destinationService;
+    private final RestTemplate restTemplate;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    public PositionService(DestinationService destinationService) {
+        this.destinationService = destinationService;
+        this.restTemplate = new RestTemplate();
+    }
 
     public List<PositionView> getPositions() {
         List<Track> positions = getActualPoints();

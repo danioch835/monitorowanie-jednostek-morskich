@@ -17,21 +17,22 @@ import java.util.stream.Collectors;
 @Service
 public class TrackService {
 
-    @Autowired
-    private DestinationService destinationService;
+    private final DestinationService destinationService;
+    private final PositionService positionService;
+    private final TrackPositionDbService trackPositionDbService;
 
-    @Autowired
-    private PositionService positionService;
-
-    @Autowired
-    private TrackPositionDbService trackPositionDbService;
+    public TrackService(DestinationService destinationService,
+                        PositionService positionService,
+                        TrackPositionDbService trackPositionDbService) {
+        this.destinationService = destinationService;
+        this.positionService = positionService;
+        this.trackPositionDbService = trackPositionDbService;
+    }
 
     public TrackView getTrackByMmsi(Long mmsi) {
         List<TrackPositionEntity> intervalPoints = getTrackHistoryFromDb(mmsi);
 
         Track track = new Track();
-//        track.setName("A");
-//        track.setDestination("A");
         track.setMmsi(mmsi.intValue());
         return getTrackView(track, intervalPoints);
     }

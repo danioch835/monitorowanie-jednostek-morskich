@@ -7,8 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoader {
 
-    @Autowired
-    private DataLoaderService dataLoaderService;
+    private final DataLoaderService dataLoaderService;
+
+    public DataLoader(DataLoaderService dataLoaderService) {
+        this.dataLoaderService = dataLoaderService;
+    }
 
     @Scheduled(fixedDelay = 10000)
     public void loadTracks() {
