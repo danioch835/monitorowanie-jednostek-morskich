@@ -8,7 +8,7 @@ Aplikacja do monitorowania jednostek morskich
 
 # Zasada działania aplikacji
 1. Aktualne pozycje jednostek wyświetlane są na podstawie danych pobranych bezpośrednio z API AIS. Pobierane dane nie są w żaden sposób zapisywane, są tylko wyświetlane na mapie.
-2. Historyczne pozycje jednostek pobierane są z API oraz zapisywane na bazie danych w celu ich późniejszego wyświetlenia. Wykorzystana została tutaj usługa zwracający pozycje dla wybranej jednostki z ostatnich 24h. Dane pobierane są co 5 sekund przez działające w tle zadanie. Dane zapisywanę są w bazie danych przyrostowo (nowsze pozycje niż te które znajdują się już na bazie).
+2. Historyczne pozycje jednostek pobierane są z API oraz zapisywane na bazie danych w celu ich późniejszego wyświetlenia. Wykorzystana została tutaj usługa zwracający pozycje dla wybranej jednostki z ostatnich 24h. Dane pobierane są co 10 sekund przez działające w tle zadanie. Dane zapisywanę są w bazie danych przyrostowo (nowsze pozycje niż te które znajdują się już na bazie).
 3. Cel podrózy statków pobierany jest na na podstawie tekstu pobranego z AIS. Dane pobierane są z API positionstack.  
 
 # Uruchomienie aplikacji
