@@ -15,7 +15,17 @@ Aplikacja do monitorowania jednostek morskich
 Aby uruchomić aplikację należy przy pomocy Docker uruchomić dwa kontenery. Pierwszy z bazą danych Postgres oraz drugi z aplikacją.
 
 ## Uruchomienie bazy danych
+1. Uruchomienie kontenera z bazą danych
 <pre>docker run -d --name some-postgres -v pgdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 postgres</pre>
+
+2. Podłączenie się do bazy danych w kontenerze:
+<pre>
+docker exec -it some-postgres psql -U postgres
+</pre>
+3. Utworzenie bazy na potrzeby aplikacji (baza o nazwie "test"): 
+<pre>
+create database test;
+</pre>
 
 <b>UWAGA! Należy ustawić własne hasło do bazy w zmiennej POSTGRES_PASSWORD</b>
 
