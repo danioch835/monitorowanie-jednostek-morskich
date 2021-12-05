@@ -70,5 +70,22 @@ Po ponownym kliknięciu w znacznik na mapie pojawiają się pozostałe jednostki
 3. Wyświetlanie historycznej trasy jednostki. URL http://localhost:8084/tracks/{MMSI}
 ![historia](https://user-images.githubusercontent.com/26234920/144764854-2b754aca-42eb-474b-8a73-aa54e7823d53.png)
 
-Czarkna linia reprezentuje hostoryczną trasę jednostki. Po najechaniu na pierwszy oraz ostatni znacznik trasy wyświetlają się daty z których pochodzą pomiary. Czarny znacznik oznacza pierwszy pomiar natomiast zielony ostatni.
+Czarna linia reprezentuje hostoryczną trasę jednostki. Po najechaniu na pierwszy oraz ostatni znacznik trasy wyświetlają się daty z których pochodzą pomiary. Czarny znacznik oznacza pierwszy pomiar natomiast zielony ostatni.
 
+
+## Pełny przykład dla śledzenia trasy jednostki:
+
+<b>a) Znajdujemy jednostkę na mapie i najeżdzamy na nią żeby zobaczyć jej trasę z ostatnich 24h oraz cel podróży:</b>
+![ostatnie_24h](https://user-images.githubusercontent.com/26234920/144765599-276ebb1b-3afc-46c8-84ca-6b50b22f411f.png)
+
+<b>b) Klikamy na znacznik jednostki aby usunąć pozostałe jednostki oraz wyświetlić popup z danymi o jednostce:</b>
+![ostatnie_24h_popup](https://user-images.githubusercontent.com/26234920/144765631-74db3f52-957c-46d6-998f-ad7e5dbba86d.PNG)
+
+<b>c) Klikamy w link "Show history" na poupie aby zobaczyć dotychczasową historię trasy jednostki:</b>
+![historia](https://user-images.githubusercontent.com/26234920/144765686-ce5eb058-12f7-464c-bae3-ded9cbcea33c.png)
+
+
+<b>d) Po dłuższym czasie ponownie klikamy w link, aby zobaczyć historię trasy jednostki:</b>
+![historia_pelna](https://user-images.githubusercontent.com/26234920/144765689-4834b8df-d3dd-4fc0-963e-3491e611a174.PNG)
+
+<b>Jak widać historia trasy jest zgodna z celem trasy widocznym na obrazie z punktu a oraz b.</b>
